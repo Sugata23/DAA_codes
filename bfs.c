@@ -1,57 +1,59 @@
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define MAX 100
-enum {BLACK, GREY, WHITE}; 
+enum
+{
+    BLACK,
+    GREY,
+    WHITE
+};
 
 typedef struct node
 {
     int dest;
-    struct node* next;
-}node;
+    struct node *next;
+} node;
 
 typedef struct graph
 {
-      node *adjl[MAX];
-      int num;    //nodes in graph
-}graph;
+    node *adjl[MAX];
+    int num; // nodes in graph
+} graph;
 
-
-graph* new_graph(int n)
+graph *new_graph(int n)
 {
     graph *g = malloc(sizeof(graph));
-    g->num = n; //n=no.of nodes in the empty graph
+    g->num = n; // n=no.of nodes in the empty graph
     for (int i = 0; i < n; i++)
     {
-            g->adjl[i] = NULL;
+        g->adjl[i] = NULL;
     }
     return g;
 }
 
-
-void addEdge(graph* g, int u, int v)
+void addEdge(graph *g, int u, int v)
 {
-    node* newNode = (node*)malloc(sizeof(node));
+    node *newNode = (node *)malloc(sizeof(node));
     newNode->dest = v;
     newNode->next = g->adjl[u];
     g->adjl[u] = newNode;
 
-    newNode = (node*)malloc(sizeof(node));
+    newNode = (node *)malloc(sizeof(node));
     newNode->dest = u;
     newNode->next = g->adjl[v];
     g->adjl[v] = newNode;
 }
 
-
-void bfs(graph* g, int s)
+void bfs(graph *g, int s)
 {
-    int color[MAX];     
-    int queue[MAX];      
+    int color[MAX];
+    int queue[MAX];
     int front = 0, rear = 0;
 
     for (int i = 0; i < g->num; i++)
     {
-            color[i] = BLACK;
+        color[i] = BLACK;
     }
     queue[rear++] = s;
     color[s] = GREY;
@@ -61,21 +63,21 @@ void bfs(graph* g, int s)
         int u = queue[front++];
         color[u] = WHITE;
         printf("%d ", u);
-        for (node* v = g->adjl[u]; v != NULL; v = v->next)
+        for (node *v = g->adjl[u]; v != NULL; v = v->next)
         {
-                if (color[v->dest] == BLACK)
+            if (color[v->dest] == BLACK)
             {
                 queue[rear++] = v->dest;
                 color[v->dest] = GREY;
-                }
             }
-       }
+        }
+    }
 }
 
-
-int main() {
+int main()
+{
     int n = 9;
-    graph* g = new_graph(n);
+    graph *g = new_graph(n);
 
     addEdge(g, 0, 1);
     addEdge(g, 0, 2);

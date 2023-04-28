@@ -3,15 +3,15 @@
 #include <time.h>
 #define N 1000
 
-void swap(int* a, int* b)
+void swap(int *a, int *b)
 {
 	int temp = *a;
 	*a = *b;
 	*b = temp;
 }
-void heapify(int arr[], int n, int i, int* comp)
+void heapify(int arr[], int n, int i, int *comp)
 {
-	int largest = i, left = 2*i + 1, right = 2*i + 2;
+	int largest = i, left = 2 * i + 1, right = 2 * i + 2;
 	(*comp)++;
 	if (left < n)
 	{
@@ -29,7 +29,7 @@ void heapify(int arr[], int n, int i, int* comp)
 		heapify(arr, n, largest, comp);
 	}
 }
-void heapSort(int arr[], int n, int* comp)
+void heapSort(int arr[], int n, int *comp)
 {
 	for (int i = n / 2 - 1; i >= 0; i--)
 		heapify(arr, n, i, comp);
@@ -39,13 +39,13 @@ void heapSort(int arr[], int n, int* comp)
 		heapify(arr, i, 0, comp);
 	}
 }
-void file (int arr[], int* comp, char* input, char* output)
+void file(int arr[], int *comp, char *input, char *output)
 {
 	FILE *inputRandom = fopen(input, "w");
 	for (int i = 0; i < N; i++)
 		fprintf(inputRandom, "%d ", rand() % 10000);
 	fclose(inputRandom);
-	
+
 	FILE *infile = fopen(input, "r");
 	FILE *outfile = fopen(output, "w");
 	for (int i = 0; i < N; i++)
